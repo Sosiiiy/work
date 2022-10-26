@@ -1,0 +1,229 @@
+@import "libs/assets/styles/variables.scss";
+
+.nav-buttons button {
+  width: 110px;
+  border-radius: 8px;
+}
+
+.navbar-nav {
+  & a {
+    color: $white;
+
+    &:hover {
+      color: $warning-color;
+    }
+  }
+}
+
+.nav-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  border-radius: 0;
+  outline: none;
+  float: right;
+  position: relative;
+  z-index: 50 !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.nav-toggle-sm {
+  transform: scale(0.65);
+  margin-right: -0.3125rem;
+}
+
+.nav-toggle {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  vertical-align: middle;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  cursor: pointer;
+}
+
+.stick {
+  width: 30px;
+  height: 3px;
+  margin-bottom: 5px;
+  background-color: $white;
+  display: inline-block;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.stick.stick-2 {
+  margin-inline-end: 4px;
+  width: 25px !important;
+}
+
+.body-menu-close .stick-1 {
+  width: 3px;
+  animation: stick-1-close 0.85s ease-out forwards;
+}
+
+.body-menu-close .stick-2 {
+  animation: stick-2-close 0.85s ease-out forwards;
+  margin-left: 4px;
+}
+
+.body-menu-close .stick-3 {
+  animation: stick-3-close 0.85s ease-out forwards;
+}
+
+:host ::ng-deep {
+  @media (max-width: 500px) {
+    .p-sidebar {
+      width: 100%;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+  }
+
+  .p-sidebar {
+    overflow: hidden;
+    height: 100vh;
+    .p-sidebar-header {
+      display: none;
+    }
+    .p-sidebar-content {
+      height: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      background: url(/assets/images/bgs/logo-white.png);
+
+      background-repeat: no-repeat;
+      background-position: right -50px top -20px;
+
+      :host-context(.ar) & {
+        background-position: left -50px top -20px;
+      }
+      position: relative;
+    }
+  }
+}
+
+::ng-deep {
+  @media (min-width: 993px) {
+    .p-component-overlay {
+      visibility: hidden !important;
+      position: relative;
+    }
+
+    .p-sidebar {
+      display: none !important;
+    }
+  }
+}
+
+.sidebar-header {
+  height: 150px;
+  background: url("/assets/images/white-logo.svg"), $primary-color;
+  background-repeat: no-repeat;
+}
+
+.nav-sidebar {
+  .nav-link {
+    color: $primary-color;
+    font-size: large;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .nav-link:hover {
+    color: $warning-color;
+  }
+}
+
+.social {
+  .nav-link {
+    padding: 0;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.5rem;
+    color: $info-color;
+
+    &:hover {
+      color: $warning-color;
+    }
+  }
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: none;
+  text-decoration: inherit;
+  object-fit: contain;
+  background-color: $white;
+  object-position: center;
+  border-image-source: linear-gradient(to left, $info-color, $warning-color);
+}
+
+.profile-header {
+  background: url("/assets/images/bgs/logo-o.png"), $primary-color;
+
+  background-repeat: no-repeat;
+
+  background-position: right -50px top -20px;
+
+  :host-context(.ar) & {
+    background-position: left -50px top -20px;
+  }
+}
+
+.nav-avtar {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.dropdown-toggle::after {
+  color: rgba($color: $bg-light, $alpha: 0.5);
+}
+
+.dropdown-item {
+  padding: 1ex 0.8rem;
+  cursor: pointer;
+  color: $primary-color;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 500;
+
+  .icon {
+    height: 35px;
+    width: 35px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.active {
+    background-color: transparent;
+    color: $warning-color;
+  }
+}
+
+.active {
+  color: $warning-color !important;
+}
+
+.lang {
+  position: absolute;
+  top: 0;
+  margin-inline-start: 50%;
+}

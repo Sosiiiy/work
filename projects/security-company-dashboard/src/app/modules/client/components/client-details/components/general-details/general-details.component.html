@@ -1,0 +1,63 @@
+<div>
+  <div class="row row-cols-md-3 row-cols-1">
+    <div>
+      <h6 class="text-info fs-14" translate="clients.client_code"></h6>
+      <p class="text-primary fw-700">{{ client.clientCompany.id }}</p>
+    </div>
+    <div>
+      <h6 class="text-info fs-14" translate="contact_number"></h6>
+      <p class="text-primary fw-700">
+        {{ client.clientCompany.chargePersonPhoneNumber }}
+      </p>
+    </div>
+    <div>
+      <h6 class="text-info fs-14" translate="commercial_id"></h6>
+      <p class="text-primary fw-700">
+        {{ client.clientCompany.commercialRegistrationNumber }}
+      </p>
+    </div>
+    <div>
+      <h6 class="text-info fs-14" translate="email"></h6>
+      <p class="text-primary fw-700">{{ client.clientCompany.email }}</p>
+    </div>
+
+    <div>
+      <h6 class="text-info fs-14" translate="national_address"></h6>
+      <p class="text-primary fw-700">
+        {{ client.clientCompany.nationalAddress }}
+      </p>
+    </div>
+  </div>
+
+  <hr />
+  <h6 class="fw-400 fs-14 text-info mb-3" translate="charge_person"></h6>
+  <div class="row row-cols-md-3 row-cols-2">
+    <div>
+      <div class="d-flex">
+        <div class="flex-shrink-0">
+          <img
+            src="assets/images/icons/earth.png"
+            alt=""
+            class="obj-cover"
+            width="55"
+            height="55"
+          />
+        </div>
+        <div class="flex-grow-1 mis-3">
+          <h5 class="mt-0">{{ client.clientCompany.chargePerson }}</h5>
+          <p>{{ client.clientCompany.email }}</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h6 class="text-info fs-14" translate="email"></h6>
+      <p class="text-primary fw-700">{{ client.clientCompany.email }}</p>
+    </div>
+    <div>
+      <h6 class="text-info fs-14" translate="contact_number"></h6>
+      <p class="text-primary fw-700">
+        {{ client.clientCompany.chargePersonPhoneNumber }}
+      </p>
+    </div>
+  </div>
+</div>

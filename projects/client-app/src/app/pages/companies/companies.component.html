@@ -1,0 +1,154 @@
+<div class="h-100 bg-info-o">
+  <div class="header bg-primary pt-5">
+    <div class="container pt-5">
+      <div class="text-info mt-3 d-flex gap-2">
+        <span translate="home"></span>
+        <span [innerHtml]="'icons.double_arrow' | translate"></span>
+        <span translate="companies"></span>
+      </div>
+      <h3 class="text-white mt-2 fw-600">
+        {{ "security_companies" | translate }}
+      </h3>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <button (click)="canvas.open('l')" type="button" id="filter"
+      class="btn d-block mb-3 d-lg-none mis-auto btn-warning text-white py-2 px-3 rounded-10 d-flex gap-3 align-items-center justify-content-center">
+      <i class="fa-solid fa-filter"></i>
+      {{ "filtration" | translate }}
+    </button>
+
+    <div class="row">
+      <div class="col-lg-4 col-xl-3 d-none d-lg-block">
+        <div class="card border-0 rounded-16">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center gap-3">
+              <h5 class="card-title text-primary fw-600 m-0" translate="filtration"></h5>
+              <a role="button" class="btn text-info btn-light">Clear All</a>
+            </div>
+
+            <div class="flex-column gap-2 d-flex">
+              <div>
+                <label for="" class="text-info" translate="filtration"></label>
+              </div>
+
+              <div>
+                <div class="form-check mb-3" *ngFor="let item of services; let i = index">
+                  <input type="checkbox" class="form-check-input" [id]="'filterOP-' + item.id" />
+                  <label class="form-check-label" [for]="'filterOP-' + item.id">
+                    {{ (lang.isAr | async) ? item.name : item.nameEN }}
+                  </label>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="" class="text-info mb-2">Filter 2</label>
+                <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100">
+                </p-dropdown>
+              </div>
+              <div class="mb-3">
+                <label for="" class="text-info mb-2">Filter 3</label>
+                <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100">
+                </p-dropdown>
+              </div>
+              <div class="mb-3">
+                <label for="" class="text-info mb-2">Filter 4</label>
+                <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-xl-9">
+        <div
+          class="d-flex mb-4 flex-wrap flex-row-reverse flex-md-row justify-content-between align-items-center gap-3">
+          <div
+            class="d-flex order-1 order-md-0 gap-2 justify-content-between justify-content-md-start col-12 col-md align-items-center">
+            <label for="" translate="order_by"></label>
+            <p-dropdown [options]="[]" placeholder="{{ 'choose' | translate }}" optionLabel="optionLabel"
+              [filter]="true" styleClass="p-1 w-250px bg-info-o "></p-dropdown>
+          </div>
+          <div class="col-12 col-md-5">
+            <div class="input-group bg-info-o">
+              <input type="text" class="form-control placeholder-sm" aria-label="Enter your email address"
+                aria-describedby="button-search" placeholder="{{ 'search_security_companies' | translate }}"
+                [(ngModel)]="searchKey" />
+              <button class="btn btn-warning text-white rounded-8" type="button" id="button-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 p-0">
+          <app-company-card *ngFor="
+              let item of companies.data
+                | filter: searchKey
+                | paginate
+                  : {
+                      itemsPerPage: pageSize,
+                      currentPage: pageNumber,
+                      totalItems: companies.totalCount,
+                      id: 'companies'
+                    }
+            " [data]="item"></app-company-card>
+        </div>
+        <div class="d-flex mt-3 align-items-center justify-content-between gap-3">
+          <div class="text-info d-flex gap-3 align-items-center">
+            <label class="fw-500" verify="global.for_page"></label>
+            <div>
+              <select class="form-select bg-white" (change)="onPageSizeChange($event)">
+                <option *ngFor="let size of sizes" [selected]="size == pageSize">
+                  {{ size }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <pagination-controls id="companies" (pageChange)="onPageNumberChange($event)"
+            (pageBoundsCorrection)="onPageNumberChange($event)" [maxSize]="3" [responsive]="true" [previousLabel]="''"
+            [nextLabel]="''" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<public-api-canvas [horizontal]="true" header="Filter" id="l" height="70vh">
+  <div class="d-flex justify-content-between align-items-center gap-3">
+    <h5 class="card-title text-primary fw-600 m-0">Filter</h5>
+    <a role="button" class="btn text-info btn-light">Clear All</a>
+  </div>
+
+  <div class="flex-column gap-2 d-flex">
+    <div class="mb-3">
+      <label for="" class="text-info mb-2">Filter 1</label>
+      <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100"></p-dropdown>
+    </div>
+
+    <div>
+      <div class="form-check mb-3" *ngFor="let item of services; let i = index">
+        <input type="checkbox" class="form-check-input" [id]="'filterOP-' + item.id" />
+        <label class="form-check-label" [for]="'filterOP-' + item.id">
+          {{ (lang.isAr | async) ? item.name : item.nameEN }}
+        </label>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="" class="text-info mb-2">Filter 2</label>
+      <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100"></p-dropdown>
+    </div>
+    <div class="mb-3">
+      <label for="" class="text-info mb-2">Filter 3</label>
+      <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100"></p-dropdown>
+    </div>
+    <div class="mb-3">
+      <label for="" class="text-info mb-2">Filter 4</label>
+      <p-dropdown [options]="[]" placeholder="placeholder" [filter]="true" styleClass="py-0 px-1 w-100"></p-dropdown>
+    </div>
+  </div>
+</public-api-canvas>

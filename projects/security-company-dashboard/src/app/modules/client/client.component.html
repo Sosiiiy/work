@@ -1,0 +1,34 @@
+<div class="h-100 py-3 container d-flex flex-column">
+  <div class="flex-grow-0">
+    <div class="d-flex justify-content-between align-items-center">
+      <h4 class="m-0 fw-600" [translate]="(title | async)!"></h4>
+      <!-- <button
+        type="button"
+        class="btn d-flex align-items-center gap-2 btn-primary py-2 px-4 rounded-8"
+      >
+        <ion-icon name="add" class="add"></ion-icon>
+        {{ "clients.add_client" | translate }}
+      </button> -->
+    </div>
+  </div>
+
+  <div class="mt-4 flex-grow-1 d-flex flex-column">
+    <ul class="nav sub-nav nav-tabs mb-3">
+      <ng-container *ngFor="let link of links">
+        <li *appRole="link.roles" class="nav-item">
+          <a
+            [routerLink]="[link.link]"
+            routerLinkActive="router-link-active"
+            class="nav-link"
+            routerLinkActive="active"
+            >{{ "clients." + link.name | translate }}
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+
+    <div class="flex-grow-1">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

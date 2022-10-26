@@ -1,0 +1,318 @@
+<nav class="navbar navbar-expand-lg navbar-dark" [ngClass]="{
+    'bg-primary shadow ': isScrolled,
+    'bg-light-o1': !isScrolled
+  }">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/']">
+      <img src="assets/images/takid2030.png" height="45" alt="" /></a>
+    <button class="navbar-toggler nav-toggle-btn no-focus" type="button" aria-expanded="false"
+      aria-label="Toggle navigation" (click)="display = true">
+      <span class="nav-toggle nav-toggle-sm rtl-flip">
+        <span class="stick stick-1"></span>
+        <span class="stick stick-2"></span>
+        <span class="stick stick-3"></span>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-4">
+        <li class="nav-item" routerLinkActive="active">
+          <a [routerLink]="[links.companies]" routerLinkActive="active" class="nav-link">
+            {{ "companies" | translate }}
+          </a>
+        </li>
+        <li [routerLink]="[links.underConstriction]" routerLinkActive="active" class="nav-item">
+          <a class="nav-link">
+            {{ "services" | translate }}
+          </a>
+        </li>
+        <li [routerLink]="[links.underConstriction]" routerLinkActive="active" class="nav-item">
+          <a class="nav-link">
+            {{ "blogs" | translate }}
+          </a>
+        </li>
+        <li [routerLink]="[links.underConstriction]" routerLinkActive="active" class="nav-item">
+          <a class="nav-link">
+            {{ "post_proposal" | translate }}
+          </a>
+        </li>
+        <li class="nav-item text-white d-flex align-items-center position-relative c-pointer"
+          (click)="onLanguageChangeListener()">
+          <i class="fa-solid fa-earth-africa fs-4"></i>
+          <span translate="lang" class="badge bg-warning lang p-1 fs-12 text-uppercase"></span>
+        </li>
+      </ul>
+      <form class="d-flex gap-2 nav-buttons" *ngIf="!isLoggedIn">
+        <button [routerLink]="[links.login]" class="btn bg-light-o text-white text-nowrap" type="button">
+          {{ "login" | translate }}
+        </button>
+        <button [routerLink]="[links.register]" class="btn btn-warning text-white text-nowrap" type="button">
+          {{ "signup" | translate }}
+        </button>
+      </form>
+      <div *ngIf="isLoggedIn">
+        <div class="dropdown my-1">
+          <button class="btn bg-light-o no-focus rounded-12 px-2 d-flex gap-3 align-items-center dropdown-toggle"
+            type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <!--? -------------------------------- guard -------------------------------- -->
+            <div *ngIf="guard" class="d-flex align-items-center gap-3">
+              <div>
+                <div>
+                  <img [src]="
+                      guard.photo?.fullLink
+                        ? guard.photo?.fullLink
+                        : 'assets/images/icons/earth.png'
+                    " class="nav-avtar" alt="profile image" />
+                </div>
+              </div>
+              <div class="text-align-start">
+                <h6 class="text-white lh-sm m-0 fw-600 text-capitalize">
+                  {{ guard.firstName }} {{ guard.lastName }}
+                </h6>
+                <div class="text-info fs-14 text-capitalize">
+                  {{ "view_profile" | translate }}
+                </div>
+              </div>
+            </div>
+
+            <!--? -------------------------------- guard -------------------------------- -->
+            <div *ngIf="clientUser" class="d-flex align-items-center gap-3">
+              <div>
+                <div>
+                  <img [src]="
+                  clientUser.photo?.fullLink
+                        ? clientUser.photo?.fullLink
+                        : 'assets/images/icons/earth.png'
+                    " class="nav-avtar" alt="profile image" />
+                </div>
+              </div>
+              <div class="text-align-start">
+                <h6 class="text-white lh-sm m-0 fw-600 text-capitalize">
+                  {{ clientUser.firstName }} {{ clientUser.lastName }}
+                </h6>
+                <div class="text-info fs-14 text-capitalize">
+                  {{ "view_profile" | translate }}
+                </div>
+              </div>
+            </div>
+
+            <!--? ------------------------------- client -------------------------------- -->
+            <div *ngIf="client" class="d-flex align-items-center gap-3">
+              <div>
+                <div>
+                  <img [src]="client.photo?.fullLink" class="nav-avtar" alt="profile image"
+                    onerror="this.src = 'assets/images/icons/buldings.png'" />
+                </div>
+              </div>
+              <div class="text-align-start">
+                <h6 class="text-white lh-sm m-0 fw-600 text-capitalize">
+                  {{ client.chargePerson }}
+                </h6>
+                <div class="text-info fs-14 text-capitalize">
+                  {{ "view_profile" | translate }}
+                </div>
+              </div>
+            </div>
+          </button>
+          <ul class="dropdown-menu text-capitalize p-0 overflow-hidden w-100 mt-2 rounded-12"
+            aria-labelledby="dropdownMenuButton">
+            <!--? ---------------------------- guard profile ---------------------------- -->
+            <li *ngIf="guard">
+              <a class="dropdown-item" [routerLink]="links.guardProfile">
+                <div class="icon bg-primary-o">
+                  <i class="fa-solid fa-user text-primary"></i>
+                </div>
+                {{ "profile" | translate }}
+              </a>
+            </li>
+
+            <!--? ---------------------------- guard profile ---------------------------- -->
+            <li *ngIf="clientUser">
+              <a class="dropdown-item" [routerLink]="links.clientProfile">
+                <div class="icon bg-primary-o">
+                  <i class="fa-solid fa-user text-primary"></i>
+                </div>
+                {{ "profile" | translate }}
+              </a>
+            </li>
+            <!--? --------------------------- client profile ---------------------------- -->
+            <li *ngIf="client">
+              <a class="dropdown-item" [routerLink]="links.clientProfile">
+                <div class="icon bg-primary-o">
+                  <i class="fa-solid fa-user text-primary"></i>
+                </div>
+                {{ "profile" | translate }}
+              </a>
+            </li>
+
+            <hr class="m-0 col-9 mis-auto" />
+            <li>
+              <a class="dropdown-item" (click)="logout()">
+                <div class="icon bg-danger-o">
+                  <i class="fa-solid fa-power-off text-danger"></i>
+                </div>
+                {{ "logout" | translate }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<p-sidebar id="side-navbar" [transitionOptions]="'150ms'"
+  [position]="(lang.language | async) == langs.ar ? 'right' : 'left'" [(visible)]="display">
+  <div class="d-flex flex-column h-100">
+    <div class="flex-grow-0" *ngIf="!isLoggedIn">
+      <div class="d-flex justify-content-end m-2">
+        <button (click)="display = false" type="button" class="btn rounded-12">
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>
+      <div class="flex-grow-0 px-4">
+        <div>
+          <img src="assets/images/logo3.png" height="60" alt="takid" />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isLoggedIn">
+      <div class="p-4 bg-primary profile-header">
+        <div class="mb-4 d-flex justify-content-between align-items-start">
+          <div>
+            <img src="assets/images/logo.png" height="50" alt="takid" />
+          </div>
+          <button (click)="display = false" type="button" class="btn text-white rounded-12">
+            <i class="fa-solid fa-x"></i>
+          </button>
+        </div>
+
+        <!--? ------------------------- guard sidebar info -------------------------- -->
+        <div *ngIf="guard" class="d-flex align-items-center gap-3">
+          <div>
+            <img [src]="
+                guard.photo?.fullLink
+                  ? guard.photo?.fullLink
+                  : 'assets/images/icons/earth.png'
+              " class="nav-avtar" alt="profile image" />
+          </div>
+          <div>
+            <h5 class="text-white lh-sm m-0 fw-600 text-capitalize">
+              {{ guard.firstName }} {{ guard.lastName }}
+            </h5>
+            <div class="text-info">{{ guard.email }}</div>
+          </div>
+        </div>
+
+        <!--? ------------------------- client User sidebar info -------------------------- -->
+        <div *ngIf="clientUser" class="d-flex align-items-center gap-3">
+          <div>
+            <img [src]="
+            clientUser.photo?.fullLink
+                  ? clientUser.photo?.fullLink
+                  : 'assets/images/icons/earth.png'
+              " class="nav-avtar" alt="profile image" />
+          </div>
+          <div>
+            <h5 class="text-white lh-sm m-0 fw-600 text-capitalize">
+              {{ clientUser.firstName }} {{ clientUser.lastName }}
+            </h5>
+            <div class="text-info">{{ clientUser.email }}</div>
+          </div>
+        </div>
+        <!--? ------------------------- client sidebar info ------------------------- -->
+        <div *ngIf="client" class="d-flex align-items-center gap-3">
+          <div>
+            <img [src]="client.photo?.fullLink" class="avatar obj-cover" [alt]="client.chargePerson + '-profile-image'"
+              [title]="client.chargePerson + '-profile-image'"
+              onerror="this.src = 'assets/images/icons/buldings.png'" />
+          </div>
+          <div>
+            <h5 class="text-white lh-sm m-0 fw-600 text-capitalize">
+              {{ client.chargePerson }}
+            </h5>
+            <div class="text-info">{{ client.email }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-4 flex-grow-1">
+      <ul class="nav nav-sidebar flex-column">
+        <li (click)="display = false" *ngIf="isLoggedIn" class="nav-item">
+          <a *ngIf="guard" class="nav-link" [routerLink]="[links.guardProfile]" routerLinkActive="active">
+            {{ "profile" | translate }}
+          </a>
+          <a *ngIf="client" class="nav-link" [routerLink]="[links.clientProfile]" routerLinkActive="active">
+            {{ "profile" | translate }}
+          </a>
+          <a *ngIf="clientUser" class="nav-link" [routerLink]="[links.clientProfile]" routerLinkActive="active">
+            {{ "profile" | translate }}
+          </a>
+        </li>
+
+        <li (click)="display = false" [routerLink]="[links.companies]" routerLinkActive="active" class="nav-item">
+          <a class="nav-link">
+            {{ "companies" | translate }}
+          </a>
+        </li>
+        <li (click)="display = false" [routerLink]="[links.underConstriction]" routerLinkActive="active"
+          class="nav-item">
+          <a class="nav-link">
+            {{ "services" | translate }}
+          </a>
+        </li>
+        <li (click)="display = false" [routerLink]="[links.underConstriction]" routerLinkActive="active"
+          class="nav-item">
+          <a class="nav-link">
+            {{ "blogs" | translate }}
+          </a>
+        </li>
+        <li (click)="display = false" [routerLink]="[links.underConstriction]" routerLinkActive="active"
+          class="nav-item">
+          <a class="nav-link">
+            {{ "post_proposal" | translate }}
+          </a>
+        </li>
+
+        <li (click)="display = false" class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link text-nowrap" [routerLink]="[links.login]" routerLinkActive="active">
+            {{ "login" | translate }}
+          </a>
+        </li>
+        <li (click)="display = false" class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link text-nowrap" [routerLink]="[links.register]" routerLinkActive="active">
+            {{ "signup" | translate }}
+          </a>
+        </li>
+        <hr *ngIf="isLoggedIn" />
+        <li (click)="display = false" class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link">{{ "support" | translate }}</a>
+        </li>
+        <li (click)="display = false" class="nav-item" (click)="logout()" *ngIf="isLoggedIn">
+          <a class="nav-link">{{ "logout" | translate }}</a>
+        </li>
+
+        <li (click)="display = false" class="nav-item">
+          <a translate="language" class="nav-link" (click)="onLanguageChangeListener()">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="container px-4 py-3">
+      <ul class="nav social">
+        <li class="nav-item">
+          <a class="nav-link"><i class="fa-brands fa-facebook"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><i class="fa-brands fa-instagram"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"><i class="fa-brands fa-twitter"></i></a>
+        </li>
+      </ul>
+
+      <div>
+        <div>© {{ year }} Takid Securities ، جميع الحقوق محفوظة</div>
+      </div>
+    </div>
+  </div>
+</p-sidebar>
