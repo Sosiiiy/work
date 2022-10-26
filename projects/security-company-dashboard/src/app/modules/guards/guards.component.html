@@ -108,7 +108,16 @@
       <div class="mb-3">
         <div class="form-floating">
           <!-- <app-islamic-date [FormControl]="BirthDate"></app-islamic-date>  -->
-
+          <hijri-gregorian-datepicker
+          [label]="'Birth Date'"
+          [(selectedDate)]="selectedDate"
+          [isRequired]="true"
+          [GregLabel]="'Gregorian'"
+          [hijriLabel]  ="'Hijri'"
+          [selectedDateType]="selectedDateType"
+          #datePicker>
+   </hijri-gregorian-datepicker>`
+   
           <!-- <div class="error-message" *ngIf="controls['birthDate'].invalid && form.submitted"
             [innerHtml]="'validation.birth_date_required' | translate"></div> -->
         </div>

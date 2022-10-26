@@ -10,7 +10,9 @@ import { Lookup } from 'projects/tools/src/lib/models/lookup';
 import { LangService } from 'projects/tools/src/lib/services/lang.service';
 import { LookupService } from 'projects/tools/src/lib/services/lookups.service';
 import { AuthService } from '../auth/services/auth.service';
-//import { IslamicDateComponent } from '../../../../../client-app/src/app/modules/core/components/islamic-date/islamic-date.component';
+import { NgxHijriGregorianDatepickerModule } from 'ngx-hijri-gregorian-datepicker';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { DateType } from 'ngx-hijri-gregorian-datepicker'; 
 
 @Component({
   selector: 'app-guards',
@@ -21,7 +23,9 @@ export class GuardsComponent implements OnInit {
   @ViewChild('form') form!: FormGroupDirective;
   list = [...GuardsRoutesList];
   canvasId = 'add-user';
-  
+  date!: NgbDate;
+selectedDateType  =  DateType.Hijri; 
+  selectedDate! :NgbDateStruct
   guardForm!: FormGroup;
   bloodTypes:any[] = [];
   genders:any [] = [];
@@ -29,7 +33,7 @@ export class GuardsComponent implements OnInit {
   nationalities:any[]=[];
   jobTypes:any [] = [];
   isAr!: boolean;
-  date!: boolean;
+  //date!: boolean;
   profileImage!: string | null;
   
   
