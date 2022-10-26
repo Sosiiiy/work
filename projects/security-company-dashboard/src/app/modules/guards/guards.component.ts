@@ -21,7 +21,7 @@ export class GuardsComponent implements OnInit {
   @ViewChild('form') form!: FormGroupDirective;
   list = [...GuardsRoutesList];
   canvasId = 'add-user';
-  photoLink!: string | null;
+  
   guardForm!: FormGroup;
   bloodTypes:any[] = [];
   genders:any [] = [];
@@ -78,14 +78,12 @@ export class GuardsComponent implements OnInit {
         Validators.pattern(`^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+(?:\s[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+)?$`),
       ],],
       nationalID: [null, [Validators.required]],
-      address: ['', [Validators.required]],
-      BirthDate: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      // BirthDate: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.email]],
       genderId: ['', [Validators.required]],
       bloodTypeId: ['', [Validators.required]],
-      nationalityId: ['', [Validators.required]],
-      cityId: ['', [Validators.required]],
-      company: ['', [Validators.required]],
+       nationalityId: ['', [Validators.required]],
+       cityId: ['', [Validators.required]],
       jobTypeId:['', [Validators.required]],
       profileImageId:[null]
     });
@@ -148,36 +146,41 @@ export class GuardsComponent implements OnInit {
   }
 
   onImageUpload(event: any) {
-    let arr = event.target.files[0].name.split('.');
+    let arr = event?.target?.files[0]?.name.split('.');
     const extension = arr[arr.length - 1].toLowerCase();
-    console.log("pppppppp"+event);
 
     if (!AcceptedFile.includes(extension)) {
-      (this.controls['profileImageId'] as UntypedFormControl).setErrors({
+      (this.controls['profileImageId'] as FormControl).setErrors({
         notValid: true,
       });
-      this.photoLink = null;
+      this.profileImage = null;
       return;
     } else {
       let url = URL.createObjectURL(event.target.files[0]);
-      (this.controls['photoId'] as UntypedFormControl).setErrors({
+      (this.controls['profileImageId'] as FormControl).setErrors({
         notValid: null,
       });
-      this.photoLink = url;
+      this.profileImage = url;
       this.attachment
         .uploadFile(event.target.files[0].name, event.target.files[0])
         .subscribe((res) => {
-          this.controls['photoId'].setValue(res);
+          
+            this.controls['profileImageId'].setValue(res);
+          
         });
     }
   }
-
 
 
   onSubmit(guardForm:FormGroup){
   
    console.log("hello")
     console.log(guardForm);
+    if(guardForm.invalid){return}
+    else{
+      console.log("value"+guardForm.value)
+    this.lookup.postGuradForm(guardForm.value);
+    }
      
 
     

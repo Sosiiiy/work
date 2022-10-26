@@ -10,7 +10,7 @@ import { GuardGeneralDetailsComponent } from './components/guards-details/compon
 import { GuardSiteComponent } from './components/guards-details/components/guard-site/guard-site.component';
 import { GuardLeavesComponent } from './components/guards-details/components/guard-leaves/guard-leaves.component';
 import { GuardSiteCardComponent } from './components/guards-details/components/guard-site/components/guard-site-card/guard-site-card.component';
-
+import { NgxHijriGregorianDatepickerModule } from 'ngx-hijri-gregorian-datepicker';
 @NgModule({
   declarations: [
     GuardsComponent,
@@ -22,7 +22,9 @@ import { GuardSiteCardComponent } from './components/guards-details/components/g
     GuardLeavesComponent,
     GuardSiteCardComponent,
   ],
-  imports: [CoreModule, GuardsRoutingModule],
+  imports: [CoreModule, GuardsRoutingModule,NgxHijriGregorianDatepickerModule],
       
 })
 export class GuardsModule {}
+
+

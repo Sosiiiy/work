@@ -15,6 +15,10 @@ export class LookupService {
     this.url = env.api;
   }
 
+  postGuradForm(Form:object): Observable<any>{
+   return this.http.post(`api/SecurityGuard/createOld`,Form);
+  }
+
   getNationality(): Observable<Lookup[]> {
     return this.http.get<Lookup[]>(
       this.url +

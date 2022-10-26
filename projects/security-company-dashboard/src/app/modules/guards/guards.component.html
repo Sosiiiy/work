@@ -24,7 +24,7 @@
 
 
       <!--? -------------------------------- logo --------------------------------- -->
-      <div class="my-4">
+       <div class="my-4">
         <div class="file bg-info-o col-12 rounded-8 text-info" [style.backgroundImage]="'url(' + profileImage + ')'"
         (change)="onImageUpload($event)" (click)="personImage.click()">
         <input type="file" #personImage hidden accept="image/x-png,image/gif,image/jpeg" />
@@ -40,49 +40,47 @@
         [innerHtml]="'validation.image_required' | translate"></div>
       <div class="error-message" *ngIf="controls['profileImageId'].errors?.notValid"
         [innerHtml]="'validation.image_invalid' | translate"></div>
-</div>
+</div> 
       <!--? -------------------------------- Firstname --------------------------------- -->
       <div class="mb-3 row">
         <div class="form-floating col-4">
           <div class="form-floating">
             <input type="text" formControlName="firstName" class="form-control" id="firstName" placeholder="data" />
             <label style="padding-right: 5px;" for="firstName" translate="firstName"></label>
-            <div *ngIf="controls['firstName']?.errors != null && controls['firstName']?.touched">
-            <div *ngIf=" controls['firstName']?.errors?.required" class="error-message"
+            <div *ngIf="form.submitted &&  controls['firstName']?.errors?.required" class="error-message"
               [innerHtml]="'validation.first_name_required' | translate"></div>
              
-              <div *ngIf="controls['firstName']?.errors?.pattern" class="error-message">
+              <div *ngIf="form.submitted &&  controls['firstName']?.errors?.pattern" class="error-message">
                 <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
                 {{ 'validation.not_valid_to_use' | translate }}
               </div>
             
-            </div>
+            
           </div>
         </div>
         <!--------------------------------------middleName------------------------------------->
         <div class="form-floating col-4">
           <input type="text" formControlName="middleName" class="form-control" id="middleName" placeholder="data" />
           <label for="middleName" translate="middle_name"></label>
-          <div *ngIf="form.submitted && controls['middleName'].errors.required" class="error-message"
-            [innerHtml]="'validation.middle_name_required' | translate"></div>
-
-          <div *ngIf="form.submitted && controls['middleName'].errors.noSpace" class="error-message"
-            [innerHtml]="'validation.middle_name_required' | translate"></div>
-
-          <div *ngIf="form.submitted && controls['middleName'].errors.pattern" class="error-message">
-            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
-            {{ 'validation.not_valid_to_use' | translate }}
+          
+            <div *ngIf=" form.submitted && controls['middleName']?.errors?.required" class="error-message"
+              [innerHtml]="'validation.middle_name_required' | translate"></div>
+             
+              <div *ngIf="form.submitted && controls['middleName']?.errors?.pattern" class="error-message">
+                <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+                {{ 'validation.not_valid_to_use' | translate }}
+              
+            
+            </div>
           </div>
-        </div>
+      
         <!--------------------------------------lastName------------------------------------->
         <div class="form-floating col-4">
           <input type="text" formControlName="lastName" class="form-control" id="lastName" placeholder="data" />
           <label for="lastName" translate="lastName"></label>
-          <div *ngIf="form.submitted && controls['lastName'].errors.required" class="error-message"
+          <div *ngIf="form.submitted && controls['lastName']?.errors?.required" class="error-message"
             [innerHtml]="'validation.last_name_required' | translate"></div>
-          <div *ngIf="form.submitted && controls['lastName'].errors.noSpace" class="error-message"
-            [innerHtml]="'validation.last_name_required' | translate"></div>
-          <div *ngIf="form.submitted && controls['lastName'].errors.pattern" class="error-message">
+          <div *ngIf="form.submitted && controls['lastName']?.errors?.pattern" class="error-message">
             <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
             {{ 'validation.not_valid_to_use' | translate }}
           </div>
@@ -102,14 +100,14 @@
           </label>
         </div>
 
-        <div class="error-message" *ngIf="controls['nationalID'].errors.required && form.submitted"
+        <div class="error-message" *ngIf="controls['nationalID']?.errors?.required && form.submitted"
           [innerHtml]="'validation.national_id_not_valid' | translate"></div>
 
-      </div>
+      </div> 
       <!--? -------------------------------- Birthday --------------------------------- -->
       <div class="mb-3">
         <div class="form-floating">
-          <!-- <app-islamic-date [FormControl]="BirthDate"></app-islamic-date> -->
+          <!-- <app-islamic-date [FormControl]="BirthDate"></app-islamic-date>  -->
 
           <!-- <div class="error-message" *ngIf="controls['birthDate'].invalid && form.submitted"
             [innerHtml]="'validation.birth_date_required' | translate"></div> -->
@@ -117,23 +115,23 @@
       </div>
 
       <!--? -------------------------------- Email --------------------------------- -->
-      <div class="mb-3">
+       <div class="mb-3">
         <div class="form-floating">
           <input type="email" class="form-control" id="Email" placeholder="Email" formControlName="email" />
           <label for="Email">
             {{ "email" | translate }}
           </label>
         </div>
-        <div *ngIf="form.submitted && controls['email'].invalid">
-          <div class="error-message" *ngIf="controls['email'].hasError('required')"
+        
+          <div class="error-message" *ngIf="form.submitted && controls['email']?.errors?.required"
             [innerHtml]="'validation.email_required' | translate"></div>
-          <div class="error-message" *ngIf="controls['email'].hasError('email')"
+          <div class="error-message" *ngIf="form.submitted && controls['email']?.errors?.email"
             [innerHtml]="'validation.email_invalid' | translate"></div>
-        </div>
-      </div>
+        
+      </div> 
 
       <!--? -------------------------------- gender &blood --------------------------------- -->
-      <div class="mb-3 row">
+       <div class="mb-3 row">
         <div class="form-floating col-6">
           <p-dropdown [filter]="true" filterBy="name" styleClass="w-100" [optionLabel]="isAr ? 'name' : 'nameEN'"
             optionValue="id" [options]="genders" [placeholder]="'gender' | translate" formControlName="genderId">
@@ -152,7 +150,7 @@
       </div>
 
       <!--? ----------------------------- Nationality ----------------------------- -->
-      <div class="mb-3">
+       <div class="mb-3">
         <div class="form-floating">
           <p-dropdown [filter]="true" filterBy="name" styleClass="w-100" [optionLabel]="isAr ? 'name' : 'nameEN'"
             optionValue="id" [options]="nationalities" [placeholder]="'nationality' | translate"
@@ -161,10 +159,10 @@
 
         <div class="error-message" *ngIf="controls['nationalityId'].invalid && form.submitted"
           [innerHtml]="'validation.nationality_required' | translate"></div>
-      </div>
+      </div> 
 
       <!--? -------------------------------- city --------------------------------- -->
-      <div class="mb-3">
+       <div class="mb-3">
         <div class="form-floating">
           <p-dropdown [filter]="true" filterBy="name" styleClass="w-100" [optionLabel]="isAr ? 'name' : 'nameEN'"
             optionValue="id" [options]="cities" [placeholder]="'city' | translate" formControlName="cityId">
@@ -173,7 +171,7 @@
 
         <div class="error-message" *ngIf="controls['cityId'].invalid && form.submitted"
           [innerHtml]="'validation.city_required' | translate"></div>
-      </div>
+      </div> 
 
 
 
